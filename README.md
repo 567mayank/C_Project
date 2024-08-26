@@ -1,7 +1,3 @@
-Certainly! Below is a sample README file for your **Graph Algorithms Library** project.
-
----
-
 # **Graph Algorithms Library**
 
 ## **Overview**
@@ -56,7 +52,7 @@ graph-algorithms-library/
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/graph-algorithms-library.git
+   git clone https://github.com/567mayank/C_Project.git
    cd graph-algorithms-library
    ```
 
@@ -138,7 +134,3 @@ Contributions are welcome! If you have ideas for new algorithms, optimizations, 
 ## **Contact**
 
 For any questions or suggestions, feel free to reach out via [mayank290404gupta@gmail.com](mailto:email@example.com).
-
----
-
-This README provides a clear and concise overview of your project, including how to install, use, and contribute to the library. It also offers enough information for someone unfamiliar with the project to get started quickly.
