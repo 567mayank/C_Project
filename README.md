@@ -41,8 +41,7 @@ graph-algorithms-library/
 │   ├── libgraph.a       # Compiled static library containing all functions and algorithms
 ├── examples/
 │   ├── main.c           # Example usage of the library
-├── README.md            # Project documentation
-└── Makefile             # Makefile for building the library and example
+└── README.md            # Project documentation
 ```
 
 ## **Installation and Usage**
