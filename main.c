@@ -2,11 +2,16 @@
 #include <stdlib.h>
 #include "graph.h"
 #include "algorithms.h"
+#include "queue.h"
 int main(){
-    Graph* graph = createGraph(3);
-    addEdge(graph, 0, 1);  // Add edge from node 0 to node 1
-    addEdge(graph, 0, 2);  // Add edge from node 0 to node 2
-    addEdge(graph, 1, 2);  // Add edge from node 1 to node 2
-    printGraph(graph);
-    DFS(graph);
+    Queue* queue=createQueue();
+    int a[2]={4,5};
+    int b[2]={10,20};
+    pushQueue(queue,a,sizeof(a));
+    pushQueue(queue,b,sizeof(b));
+    while(queue->size){
+        int* val=topQueue(queue);
+        printf("%d %d\n ",val[0],val[1]);
+        popQueue(queue);
+    }
 }
