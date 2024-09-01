@@ -5,7 +5,7 @@ gcc -c src/queue.c -Iinclude -o src/queue.o
 gcc -c src/priorityQueue.c -Iinclude -o src/priorityQueue.o
 
 # Step 2: Create the static library
-ar rcs lib/libgraph.a src/graph.o src/algorithms.o src/queue.o src/priorityQueue.o
+ar rcs lib/libgraph.a src/algorithms.o src/graph.o
 
 # Step 3: Compile the main program
 gcc -c examples/main.c -Iinclude -o examples/main.o

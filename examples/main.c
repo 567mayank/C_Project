@@ -6,25 +6,29 @@ int edgeFinder(const void* node){
     return *(int*)node;
 }
 int main() {
-    Graph* graph = createGraph(4, sizeof(int));
+    Graph* graph = createGraph(7, sizeof(int),edgeFinder);
 
-    int data1 = 1, data2 = 2, data3 = 3;
+    int d0=0;
+    int d1=1;
+    int d2=2;
+    int d3=3;
+    int d4=4;
+    int d5=5;
+    int d6=6;
 
-    addEdge(graph, 0, &data1);  
-    addEdge(graph, 0, &data3);  
-    addEdge(graph, 0, &data2);  
-    addEdge(graph, 2, &data3);  
+    addEdge(graph, 0, &d3);  
+    addEdge(graph, 0, &d2);  
+    addEdge(graph, 0, &d1);  
+    addEdge(graph, 2, &d5);  
+    addEdge(graph, 5, &d6);  
+    addEdge(graph, 3, &d4);  
 
-    DFS(graph, 0, edgeFinder);
-    for(int i=0;i<graph->numNodes;i++){
-        Node* temp=graph->adjacencyList[i];
-        printf("%d ",i);
-        while(temp){
-            printf("-> %d ",*(int*)(temp->data));
-            temp=temp->next;
-        }
-        printf("\n");
-    }
+    DFS(graph, 0);
+    BFS(graph, 0);
+    
     freeGraph(graph);
     return 0;
 }
+
+// 0 1 2 5 6 3 4
+// 0 1 2 3 5 4 6

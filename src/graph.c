@@ -2,10 +2,11 @@
 #include<stdlib.h>
 #include<string.h>
 #include"graph.h"
-Graph* createGraph(int numNodes,size_t dataSize) {
+Graph* createGraph(int numNodes,size_t dataSize,int (*edgeFinder)(const void*)) {
     Graph* graph = malloc(sizeof(Graph));
     graph->numNodes = numNodes;
     graph->dataSize=dataSize;
+    graph->edgeFinder=edgeFinder;
     graph->adjacencyList = malloc(numNodes * sizeof(Node*));
     for (int i = 0; i < numNodes; i++) {
         graph->adjacencyList[i] = NULL;
@@ -35,14 +36,13 @@ void freeGraph(Graph* graph) {
     free(graph);
 }
 
-// void printGraph(Graph* graph) {
-//     for (int i = 0; i < graph->numNodes; i++) {
-//         Node* current = graph->adjacencyList[i];
-//         printf("%d ",i);
-//         while (current != NULL) {
-//             printf("-> %d ", current->id);
-//             current = current->next;
-//         }
-//         printf("\n");
+// for printing graph
+// for(int i=0;i<graph->numNodes;i++){
+//     Node* temp=graph->adjacencyList[i];
+//     printf("%d ",i);
+//     while(temp){
+//         printf("-> %d ",(int)(temp->data));
+//         temp=temp->next;
 //     }
+//     printf("\n");
 // }
