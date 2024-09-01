@@ -1,16 +1,16 @@
 #pragma once
 typedef struct Node {
-    int id;
+    void* data;
     struct Node* next;
 } Node;
 
 typedef struct Graph {
     int numNodes;
+    int dataSize;
     Node** adjacencyList;
 } Graph;
 
-Graph* createGraph(int numNodes);
-void addEdge(Graph* graph, int src, int dest);
-void removeEdge(Graph* graph, int src, int dest);
-void printGraph(Graph* graph);
+Graph* createGraph(int numNodes,size_t dataSize);
+void addEdge(Graph* graph, int src, void* dest);
 void freeGraph(Graph* graph);
+// void printGraph(Graph* graph);
