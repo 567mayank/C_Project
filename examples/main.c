@@ -4,14 +4,12 @@
 #include "algorithms.h"
 #include "queue.h"
 int main(){
-    Queue* queue=createQueue();
-    int a[2]={4,5};
-    int b[2]={10,20};
-    pushQueue(queue,a,sizeof(a));
-    pushQueue(queue,b,sizeof(b));
-    while(queue->size){
-        int* val=topQueue(queue);
-        printf("%d %d\n ",val[0],val[1]);
-        popQueue(queue);
-    }
+    Graph* graph = createGraph(5);
+    addEdge(graph,0,1);
+    addEdge(graph,0,2);
+    addEdge(graph,1,3);
+    addEdge(graph,1,4);
+    addEdge(graph,2,4);
+    BFS(graph,0);
+    DFS(graph,0);
 }
