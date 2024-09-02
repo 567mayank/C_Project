@@ -52,6 +52,62 @@ void BFS(Graph* graph,int startNode){
     free(visit);
 }
 
+int undirectedCyclicityRecursive(Graph* graph,int* visit,int node,int par){
+    visit[node] = 1;
+    Node* tmp = graph->adjacencyList[node];
+    while(tmp){
+        int edge = graph->edgeFinder(tmp->data);
+        if(visit[edge]==0) {
+            if(undirectedCyclicityRecursive(graph,visit,edge,node)) return 1;   
+        }
+        else if(par!=edge) return 1;
+        tmp = tmp->next;
+    }
+    return 0;
+}
+int undirectedCyclicity(Graph* graph){
+    int n=graph->numNodes;
+    int* visit = malloc(n*sizeof(int));
+    for(int i=0;i<n;i++) visit[i]=0;
+    for(int i=0;i<n;i++){
+        if(visit[i]==1) continue;
+        if(undirectedCyclicityRecursive(graph,visit,i,-1)) return 1;
+    }
+    free(visit);
+    return 0;
+}
+
+int directedCyclicityRecursive(Graph* graph,int* visit,int *path,int node){
+    visit[node]=1;
+    path[node]=1;
+    Node* tmp = graph->adjacencyList[node];
+    while(tmp){
+        int edge = graph->edgeFinder(tmp->data);
+        if(visit[edge]==0){
+            if(directedCyclicityRecursive(graph,visit,path,edge)) return 1;
+        }
+        else if(path[edge]==1) return 1;
+        tmp = tmp->next;
+    }
+    path[node]=0;
+    return 0;
+}
+int directedCyclicity(Graph* graph){
+    int n=graph->numNodes;
+    int* visit = malloc(n*sizeof(int));
+    int* path = malloc(n*sizeof(int));
+    for(int i=0;i<n;i++) visit[i]=path[i]=0;
+    for(int i=0;i<n;i++){
+        if(visit[i]==1) continue;
+        path[i]=1;
+        if(directedCyclicityRecursive(graph,visit,path,i)) return 1;
+        path[i]=0;
+    }
+    free(path);
+    free(visit);
+    return 0;
+} 
+
 int* dijkstra(Graph* graph, int startNode,int (*cmp) (const void*, const void*)){
     int n=graph->numNodes;
     int* dis = malloc(n*sizeof(int));
@@ -78,4 +134,34 @@ int* dijkstra(Graph* graph, int startNode,int (*cmp) (const void*, const void*))
     }while(pq->size!=0);
     freePriorityQueue(pq);
     return dis;
+}
+
+int** floydWarshal(Graph* graph){
+    int n=graph->numNodes;
+    int** matrix=malloc(n*sizeof(int*));
+    for(int i=0;i<n;i++){
+        matrix[i]=malloc(n*sizeof(int));
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++) matrix[i][j]=1e9;
+    }
+    for(int i=0;i<n;i++){
+        matrix[i][i]=0;
+        Node* tmp = graph->adjacencyList[i];
+        while(tmp){
+            int edge = graph->edgeFinder(tmp->data);
+            int wt = graph->weightFinder(tmp->data);
+            matrix[i][edge]=wt;
+            matrix[edge][i]=wt;
+            tmp=tmp->next;
+        }
+    }
+    for(int k=0;k<n;k++){
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]>matrix[i][k]+matrix[k][j]) matrix[i][j] = matrix[i][k] + matrix[k][j];
+            }
+        }
+    }
+    return matrix;
 }
