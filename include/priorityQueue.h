@@ -9,6 +9,7 @@ typedef struct priorityQueue {
 } priorityQueue;
 
 priorityQueue* createPriorityQueue(size_t dataSize, int (*compare)(const void*, const void*));
-void pushQueue(priorityQueue* pq, void* value);
-void popQueue(priorityQueue* pq);
+void pushPriorityQueue(priorityQueue* pq, void* value);
+void* topPriorityQueue(priorityQueue* pq);
+void popPriorityQueue(priorityQueue* pq);
 void freePriorityQueue(priorityQueue* pq);

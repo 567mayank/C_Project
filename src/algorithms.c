@@ -1,7 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<limits.h>
 #include "queue.h"
 #include "graph.h"
+#include "priorityQueue.h"
 
 void DFS_recursive(Graph* graph,int startNode,int *visit){
     printf("%d ",startNode);
@@ -50,6 +52,30 @@ void BFS(Graph* graph,int startNode){
     free(visit);
 }
 
-// int* dijkstra(Graph* graph, int startNode){
-
-// }
+int* dijkstra(Graph* graph, int startNode,int (*cmp) (const void*, const void*)){
+    int n=graph->numNodes;
+    int* dis = malloc(n*sizeof(int));
+    for(int i=0;i<n;i++) dis[i]=INT_MAX;
+    dis[startNode]=0;
+    size_t sz=graph->dataSize;
+    priorityQueue* pq = createPriorityQueue(sz,cmp);
+    do{
+        int node=startNode;
+        if(pq->size){
+            node=graph->edgeFinder(topPriorityQueue(pq));
+            popPriorityQueue(pq);
+        }
+        Node* tmp = graph->adjacencyList[node];
+        while(tmp){
+            int edge=graph->edgeFinder(tmp->data);
+            int wt=graph->weightFinder(tmp->data);
+            if(wt+dis[node]<dis[edge]){
+                dis[edge]=wt+dis[node];
+                pushPriorityQueue(pq,tmp->data);
+            }   
+            tmp=tmp->next;
+        }
+    }while(pq->size!=0);
+    freePriorityQueue(pq);
+    return dis;
+}

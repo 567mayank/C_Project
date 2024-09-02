@@ -30,7 +30,7 @@ void resizePriorityQueue(priorityQueue* pq) {
     pq->data = realloc(pq->data, pq->capacity * pq->dataSize);
 }
 
-void pushQueue(priorityQueue* pq, void* value) {
+void pushPriorityQueue(priorityQueue* pq, void* value) {
     if (pq->size == pq->capacity) {
         resizePriorityQueue(pq);  
     }
@@ -45,7 +45,7 @@ void pushQueue(priorityQueue* pq, void* value) {
     }
 }
 
-void* topQueue(priorityQueue* pq){
+void* topPriorityQueue(priorityQueue* pq){
     if(pq->size==0) {
         fprintf(stderr,"Empty Priority Queue");
         return NULL;
@@ -67,7 +67,7 @@ void heapifyRecursive(priorityQueue* pq,int ind){
     swap((char*)pq->data+ind*pq->dataSize,(char*)pq->data+maxiInd*pq->dataSize,pq->dataSize); 
     heapifyRecursive(pq,maxiInd);   
 }
-void popQueue(priorityQueue* pq){
+void popPriorityQueue(priorityQueue* pq){
     if(pq->size==0) {
         fprintf(stderr,"Queue Underflow");
         return;

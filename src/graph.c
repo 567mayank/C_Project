@@ -2,11 +2,12 @@
 #include<stdlib.h>
 #include<string.h>
 #include"graph.h"
-Graph* createGraph(int numNodes,size_t dataSize,int (*edgeFinder)(const void*)) {
+Graph* createGraph(int numNodes,size_t dataSize,int (*edgeFinder)(const void*),int (*wieghtFinder)(const void*)) {
     Graph* graph = malloc(sizeof(Graph));
     graph->numNodes = numNodes;
     graph->dataSize=dataSize;
     graph->edgeFinder=edgeFinder;
+    graph->weightFinder=wieghtFinder;
     graph->adjacencyList = malloc(numNodes * sizeof(Node*));
     for (int i = 0; i < numNodes; i++) {
         graph->adjacencyList[i] = NULL;
