@@ -108,6 +108,45 @@ int directedCyclicity(Graph* graph){
     return 0;
 } 
 
+int* topologicalSort(Graph* graph){
+    int n = graph->numNodes;
+    int* indegree = malloc(n * sizeof(int));
+    int* array = malloc(n * sizeof(int));
+    for(int i=0;i<n;i++) indegree[i] = array[i] = 0;
+    for(int i=0;i<n;i++){
+        Node* tmp = graph->adjacencyList[i];
+        while(tmp){
+            int edge = graph->edgeFinder(tmp->data);
+            indegree[edge]++;
+            tmp = tmp->next;
+        }
+    }
+    Queue* q = createQueue();
+    for(int i=0;i<n;i++){
+        if(indegree[i]==0) pushQueue(q,&i,sizeof(i));
+    }
+    int k=0;
+    while(isQueueEmpty(q)==0){
+        int node = graph->edgeFinder(topQueue(q));
+        popQueue(q);
+        array[k++]=node;
+        Node* tmp = graph->adjacencyList[node];
+        while(tmp){
+            int edge = graph->edgeFinder(tmp->data);
+            indegree[edge]--;
+            if(indegree[edge]==0) pushQueue(q,&edge,sizeof(edge));
+            tmp = tmp->next;
+        }
+    }
+    free(indegree);
+    if(k!=n) {
+        free(array);
+        return NULL;
+    }
+    return array;
+}
+
+
 int* dijkstra(Graph* graph, int startNode,int (*cmp) (const void*, const void*)){
     int n=graph->numNodes;
     int* dis = malloc(n*sizeof(int));
