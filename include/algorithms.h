@@ -7,3 +7,4 @@ int directedCyclicity(Graph* graph);
 int* topologicalSort(Graph* graph);
 int* dijkstra(Graph* graph, int startNode,int (*cmp) (const void*, const void*));
 int** floydWarshal(Graph* graph);
+int prims(Graph* graph,int (*cmp)(const void *, const void *));

@@ -49,3 +49,5 @@ int main() {
     
     return 0;
 }
+
+// example test case visual https://static.javatpoint.com/ds/images/prims-algorithm.png

@@ -204,3 +204,34 @@ int** floydWarshal(Graph* graph){
     }
     return matrix;
 }
+
+int prims(Graph* graph,int (*cmp)(const void *, const void *)){
+    int n=graph->numNodes;
+    int* visit = malloc(n*sizeof(int));
+    for(int i=0;i<n;i++) visit[i]=0;
+    int ans=0;
+    size_t sz=graph->dataSize;
+    priorityQueue* pq = createPriorityQueue(sz,cmp);
+    do{
+        int node=n-1;
+        int wt=0;
+        if(pq->size){
+            node=graph->edgeFinder(topPriorityQueue(pq));
+            wt=graph->weightFinder(topPriorityQueue(pq));
+            popPriorityQueue(pq);
+        }
+        if(visit[node]==1) continue;
+        visit[node]=1;
+        ans += wt;
+        Node* tmp = graph->adjacencyList[node];
+        while(tmp){
+            int edge=graph->edgeFinder(tmp->data);
+            int wt=graph->weightFinder(tmp->data);
+            if(visit[edge]==0) pushPriorityQueue(pq,tmp->data);
+            tmp=tmp->next;
+        }
+    }while(pq->size!=0);
+    freePriorityQueue(pq);
+    free(visit);
+    return ans;
+}
