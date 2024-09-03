@@ -24,7 +24,7 @@ int main() {
     int d35[2]={5,6}; int d53[2]={3,6};
     int d24[2]={4,4}; int d42[2]={2,4};
     int d45[2]={5,1}; int d54[2]={4,1};
-    // ans=6
+    // Sample test Case's output -> ans=10
     Graph* graph = createGraph(6, sizeof(d13),edgeFinder,weightFinder);
 
     addEdge(graph, 1, &d13); addEdge(graph, 3, &d31); 
