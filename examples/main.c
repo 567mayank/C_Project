@@ -4,7 +4,6 @@
 #include "algorithms.h"
 #include "disjointSetUnion.h"
 
-
 int main() {
-    
+    return 0;
 }
