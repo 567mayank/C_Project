@@ -37,6 +37,7 @@ int main() {
     int* dis=dijkstra(graph,0,compare);
     for(int i=0;i<graph->numNodes;i++) printf("%d ",dis[i]);
 
+    free(dis);
     freeGraph(graph);
     
     return 0;
