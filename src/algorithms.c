@@ -235,3 +235,29 @@ int prims(Graph* graph,int (*cmp)(const void *, const void *)){
     free(visit);
     return ans;
 }
+
+int* bellmanFord(Graph* graph,int startNode){
+    int n = graph->numNodes;
+    int* dis = malloc(n*sizeof(int));
+    for(int i=0;i<n;i++) dis[i]=INT_MAX;
+    dis[startNode]=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            Node* tmp =  graph->adjacencyList[j];
+            while(tmp){
+                int u = j;
+                int v = graph->edgeFinder(tmp->data);
+                int wt = graph->weightFinder(tmp->data);
+                if(dis[u]!=INT_MAX&&dis[v]>wt+dis[u]){
+                    dis[v]=wt+dis[u];
+                    if(i==n-1) {     // If NULL is returned, graph has Negative cycle
+                        free(dis);
+                        return NULL; 
+                    }
+                }
+                tmp = tmp->next;
+            }
+        }
+    }
+    return dis;
+}
