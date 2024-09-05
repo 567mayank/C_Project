@@ -55,14 +55,6 @@ graph-algorithms-library/
    cd graph-algorithms-library
    ```
 
-2. **Build the static library:**
-
-   ```bash
-   make
-   ```
-
-   This will compile the source files and generate `libgraph.a` in the `lib/` directory.
-
 ### **Using the Library in Your Project**
 
 1. **Include the headers:**
@@ -73,14 +65,19 @@ graph-algorithms-library/
      #include "algorithms.h"
      #include "utils.h"
      ```
+2. **Compile the main program**
 
-2. **Link the library when compiling your project:**
+   ```bash
+   gcc -c main.c -Iinclude -o main.o
+   ```
+
+3. **Link the library when compiling your project:**
 
    ```bash
    gcc -o myprogram myprogram.c -L./lib -lgraph
    ```
 
-3. **Run your program:**
+4. **Run your program:**
 
    ```bash
    ./myprogram
@@ -95,6 +92,7 @@ To compile and run the example:
 ```bash
 cd examples
 gcc -o example main.c -L../lib -lgraph
+gcc -c main.c -Iinclude -o main.o
 ./example
 ```
 
