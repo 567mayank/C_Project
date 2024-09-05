@@ -141,7 +141,7 @@ int* topologicalSort(Graph* graph){
     free(indegree);
     if(k!=n) {
         free(array);
-        return NULL;
+        return NULL;   // Graph contains a cycle
     }
     return array;
 }

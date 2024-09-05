@@ -91,8 +91,7 @@ To compile and run the example:
 
 ```bash
 cd examples
-gcc -o example main.c -L../lib -lgraph
-gcc -c main.c -Iinclude -o main.o
+gcc -o example main.c -I../include -L../lib -lgraph
 ./example
 ```
 
