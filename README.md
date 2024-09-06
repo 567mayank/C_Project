@@ -2,7 +2,7 @@
 
 ## **Overview**
 
-Welcome to the **Graph Algorithms Library**! This project is a comprehensive C library that provides a variety of graph algorithms and utilities, similar to the Standard Template Library (STL) in C++. The library includes implementations of essential graph traversal and pathfinding algorithms, along with utilities for managing graphs and performing file I/O operations. The library is designed to be modular, reusable, and efficient, making it a valuable tool for developers working with graph data structures.
+Welcome to the **Graph Algorithms Library**! This project is a comprehensive C library that provides a variety of graph algorithms and utilities, similar to the Standard Template Library (STL) in C++. The library includes implementations of essential graph traversal and pathfinding algorithms. The library is designed to be modular, reusable, efficient and generic making it a valuable tool for developers working with graph data structures.
 
 ## **Features**
 
@@ -18,10 +18,6 @@ Welcome to the **Graph Algorithms Library**! This project is a comprehensive C l
   - **Floyd-Warshall Algorithm**
   - And more!
 
-- **Utility Functions:**
-  - File I/O functions for reading and writing graphs.
-  - Memory management utilities for safe and efficient memory operations.
-
 - **Static Library (`libgraph.a`):**
   - Precompiled static library for easy integration into your projects.
 
@@ -30,18 +26,18 @@ Welcome to the **Graph Algorithms Library**! This project is a comprehensive C l
 ```
 graph-algorithms-library/
 ├── include/
-│   ├── graph.h          # Core graph data structures and basic operations
-│   ├── algorithms.h     # Prototypes for graph algorithms
-│   ├── utils.h          # Utility function prototypes (File I/O, memory management, etc.)
+│   ├── graph.h            # Core graph data structures and basic operations
+│   ├── algorithms.h       # Prototypes for graph algorithms
+│   ├── disjointSetUnion.h # Prototypes for Disjoint Set Union
 ├── src/
-│   ├── graph.c          # Implementation of core graph data structures and operations
-│   ├── algorithms.c     # Implementation of various graph algorithms
-│   ├── utils.c          # Implementation of utility functions
+│   ├── graph.c            # Implementation of core graph data structures and operations
+│   ├── algorithms.c       # Implementation of various graph algorithms
+│   ├── disjointSetUnion.c # Implementation of Disjoint Set Unoin functions
 ├── lib/
-│   ├── libgraph.a       # Compiled static library containing all functions and algorithms
+│   ├── libgraph.a         # Compiled static library containing all functions and algorithms
 ├── examples/
-│   ├── main.c           # Example usage of the library
-└── README.md            # Project documentation
+│   ├── main.c             # Example usage of the library
+└── README.md              # Project documentation
 ```
 
 ## **Installation and Usage**
@@ -100,20 +96,21 @@ gcc -o example main.c -I../include -L../lib -lgraph
 ### **Core Functions**
 
 - **Graph Operations (`graph.h` and `graph.c`):**
-  - `Graph* createGraph(int numNodes);`
-  - `void addEdge(Graph* graph, int src, int dest);`
-  - `void removeEdge(Graph* graph, int src, int dest);`
+  - `Graph* createGraph(int numNodes,size_t dataSize,int (*edgeFinder)(const void*),int (*wieghtFinder)(const void*));`
+  - `void addEdge(Graph* graph, int src, void* dest);`
   - `void freeGraph(Graph* graph);`
 
 - **Graph Algorithms (`algorithms.h` and `algorithms.c`):**
   - `void DFS(Graph* graph, int startNode);`
   - `void BFS(Graph* graph, int startNode);`
-  - `int* dijkstra(Graph* graph, int startNode);`
+  - `int** floydWarshal(Graph* graph);`
 
-- **Utility Functions (`utils.h` and `utils.c`):**
-  - `Graph* readGraphFromFile(const char* filename);`
-  - `void writeResultsToFile(const char* filename, int* results);`
-  - `void* safeMalloc(size_t size);`
+- **Disjoint Set Union Functions (`disjointSetUnion.h` and `disjointSetUnion.c`):**
+  - `DSU* createDSU(int n,int (*edgeFinder)(const void*));`
+  - `void unionDSU(DSU*ds,void* u,void* v);`
+  - `int sameComponent(DSU*ds,void* u,void* v);`
+
+  For more detailed information and usage examples, please refer to the complete documentation available at : [Graph Algorithms Documentation](https://light-sovereign-3b7.notion.site/Graph-Algorithms-Documentation-189d0769f6e34c879872f6f226fcd3c9)
 
 ### **Adding New Algorithms**
 
@@ -121,7 +118,6 @@ To add a new algorithm:
 
 1. Define the algorithm in `algorithms.h`.
 2. Implement the algorithm in `algorithms.c`.
-3. Rebuild the library using `make`.
 
 ## **Contributing**
 
@@ -129,4 +125,4 @@ Contributions are welcome! If you have ideas for new algorithms, optimizations, 
 
 ## **Contact**
 
-For any questions or suggestions, feel free to reach out via [mayank290404gupta@gmail.com](mailto:email@example.com).
+For any questions or suggestions, feel free to reach out via [mayank290404gupta@gmail.com](mailto:mayank290404gupta@gmail.com).
